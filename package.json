@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "import": "node import-data",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/Epeac/Test_Pi-/issues"
   },
-  "homepage": "https://github.com/Epeac/Test_Pi-#readme"
+  "homepage": "https://github.com/Epeac/Test_Pi-#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2"
+  }
 }
