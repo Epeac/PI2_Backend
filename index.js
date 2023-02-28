@@ -3,13 +3,17 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = 3000
 const MeasureService = require("./measure.service")
+let payload = {
+  temperature: "rien",
+  humidity:"rien"
+}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 async function Addnewmeasure(data){
   //const newMeasure = await MeasureService.createone(data)
-    const payload ={
+    payload ={
       temperature: data.humidity,
       humidity : data.temperature
     }
@@ -24,7 +28,7 @@ app.post('/api/info',(req,res)=>{
 
 app.get('/',(req,res)=>{
   const message = "Bienvenue dans la serre connecté";
-  res.json(message);
+  res.json(payload);
 });
 
 app.listen(port, () => {
