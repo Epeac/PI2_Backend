@@ -7,10 +7,9 @@ const mesurees = require("./testmesure.json");
 function buildMesure(mesurees){
     return{
         humiditesol: mesurees.humiditesol,
-        humiditeair: mesurees.humiditeair,
-        temperatureair: mesurees.temperatureair,
+        humiditeaire: mesurees.humiditeaire,
+        temperatureaire: mesurees.temperatureaire,
         luminosite: mesurees.luminosite,
-        Datedemesure:mesurees.Datedemesure,
     };
 }
 
@@ -18,7 +17,7 @@ async function importBulkMovie(){
     const MesureArray = mesurees.map((mesurees)=>
         buildMesure(mesurees)
     );
-    await Mesure.inserMany(MesureArray);
+    await Mesure.insertMany(MesureArray);
 }
 async function main(){
     await mongoose.connect(process.env.MONGO_URI);
@@ -47,12 +46,3 @@ async function add_mes(mes){
     await mes.save()
     return("Ajoutée")
 }
-
-async function main(){
-    await mongoose.connect(process.env.MONGO_URI).then((success)=>console.log("connecté"))
-    CreationLocation(filmingLocations)
-    console.log(await delete_id("6336da1656ec897f6dd7f062"))
-
-}
-
-main()  
