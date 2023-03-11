@@ -4,7 +4,7 @@ const authorizationMiddleware = require("../authorization/authorization.middlewa
 const httpErrorHelper = require("../custom-errors/http-error.helper");
 
 async function controllerCreateOneMesure(req, res){
-    const newMesure = await mesureService.createOne(req.body);
+    const newMesure = await mesureService.createOne(req.body.decoded.payload);
     return res.status(201).send(newMesure);
 }
 
@@ -31,6 +31,7 @@ async function controllerGetOneMesure(req, res, next){
        return httpErrorHelper(err, req, res, next);
     }
 }
+
 router.get("/:id", controllerGetOneMesure);
 
 async function controllerUpdateOneMesure(req, res, next){
@@ -61,5 +62,16 @@ router.delete(
     authorizationMiddleware.canAccess(["admin"]),
     controllerDeleteOneMesure
 );
+
+async function getLastMesure(req, res, next){
+    try{
+        const mesure = await mesureService.findRecentOne();
+        return res.status(200).send(mesure);
+    }catch(err){
+        return httpErrorHelper(err, req, res, next);
+    }
+}
+
+router.get("/last/last",getLastMesure);
 
 module.exports = router;
