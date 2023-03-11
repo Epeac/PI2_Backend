@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const mesureService = require("./measure.service");
 const authorizationMiddleware = require("../authorization/authorization.middleware");
+const httpErrorHelper = require("../custom-errors/http-error.helper");
 
 async function controllerCreateOneMesure(req, res){
     const newMesure = await mesureService.createOne(req.body);
@@ -27,17 +28,17 @@ async function controllerGetOneMesure(req, res, next){
         const mesure = await mesureService.findOne(req.params.id);
         return res.status(200).send(mesure);
     } catch(err){
-        console.log(err);
+       return httpErrorHelper(err, req, res, next);
     }
 }
-router("/:id", controllerGetOneMesure);
+router.get("/:id", controllerGetOneMesure);
 
 async function controllerUpdateOneMesure(req, res, next){
     try{
         const mesure = await mesureService.updateOne(req.params.id, req.body);
         return res.status(200).send(mesure);
     } catch(err){
-        console.log(err)
+        return httpErrorHelper(err, req, res, next);
     }
 }
 
@@ -52,7 +53,7 @@ async function controllerDeleteOneMesure(req, res, next){
         const mesure = await mesureService.deleteOne(req.params.id);
         return res.status(200).send(mesure);
     }catch(err){
-        console.log(err);
+        httpErrorHelper(err, req, res, next)
     }
 }
 router.delete(

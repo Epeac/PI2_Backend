@@ -1,4 +1,6 @@
 const Mesure = require("./measure.model");
+const { NotFoundError } = require("../custom-errors/not-found.error");
+const { ValidationError } = require("../custom-errors/validation.error");
 
 async function createOne(mesureData){
     const mesure = new Mesure(mesureData);
@@ -19,6 +21,7 @@ async function findOne(id){
         mesure = await Mesure.findByID(id);
     }catch(e){
         console.error(e);
+        throw new ValidationError(e.message);
     }
     return mesure;
 }

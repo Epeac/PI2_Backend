@@ -7,23 +7,38 @@ const bodyParser = require('body-parser');
 require("./src/authentication/local.strategy");
 require("./src/authentication/jwt.strategy");
 const passport = require("passport");
-const querystring = require('querystring')
 
+const app = express();
+const port = 3000;
 
-const app = express()
-const port = 3000
+let cors = require("cors");
+app.use(cors());
 
-
-
+app.use((req,res,next)=>{
+  res.setHeader('Access-Control-Allow-Origin','*');
+  res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+  res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
+  next();
+})
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
-app.get('/',(req,res)=>{
-  const message = "Bienvenue dans la serre connecté";
-  res.json(message);
-});
+app.use(
+  "/mesures",
+  passport.authenticate("jwt", { session: false }),
+  measureController
+);
+app.use("/users", userController);
 
-app.listen(port, () => {
-  console.log(`API endpoint is listening on port ${port}`);
-});
+async function main() {
+  await mongoose.connect(process.env.MONGO_URI);
+  console.log("Connected to Mongo Database");
+  app.listen(port, () => {
+    console.log(
+      `API listening on port ${port}, visit http://localhost:${port}/`
+    );
+  });
+}
+
+main();
