@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require('express');
 const measureController = require("./src/mesures/mesure.controller");
 const userController = require("./src/users/users.controller");
+const downlinkController = require("./src/downlink/downlink.controller");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 require("./src/authentication/local.strategy");
@@ -31,9 +32,16 @@ app.use(
 );
 app.use("/users", userController);
 
+app.use("/downlink",downlinkController);
+
+
+
+
+
 async function main() {
   await mongoose.connect(process.env.MONGO_URI);
   console.log("Connected to Mongo Database");
+
   app.listen(port, () => {
     console.log(
       `API listening on port ${port}, visit http://localhost:${port}/`

@@ -10,7 +10,7 @@ async function controllerCreateOneMesure(req, res){
 
 router.post(
     "/",
-    authorizationMiddleware.canAccess(["admin"]),
+    authorizationMiddleware.canAccess([]),
     controllerCreateOneMesure
 );
 

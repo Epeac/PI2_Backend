@@ -74,5 +74,4 @@ router.delete(
   passport.authenticate("jwt", { session: false }),
   controllerDeleteUser
 );
-
 module.exports = router;
