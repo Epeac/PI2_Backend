@@ -27,12 +27,15 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(
   "/mesures",
-  //passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   measureController
 );
 app.use("/users", userController);
 
-app.use("/downlink",downlinkController);
+app.use(
+  "/downlink",
+  passport.authenticate("jwt", { session: false }),
+  downlinkController);
 
 
 

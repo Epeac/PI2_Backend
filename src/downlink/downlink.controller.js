@@ -21,6 +21,8 @@ async function SendingData(req, res, next){
       });
       
 }
-router.post("/",SendingData);
+router.post(
+  "/",
+  SendingData);
 
 module.exports = router;
