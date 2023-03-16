@@ -7,7 +7,7 @@ async function SendingData(req, res, next){
     console.log(payload);
     var options = {
         method: 'POST',
-        url: 'https://console.helium-iot.eu/api/v1/down/aca6a59d-b4d4-4788-9502-6fe05a05fcf0/gopWugdObwKjttAPto_Wx4SPEjf4ZpGd',
+        url: 'https://console.helium-iot.eu/api/v1/down/5732cab3-0e5e-4972-8322-b611c6add934/M7CosNquuf5mLnhVo-S94BzLGQUEif82/{:optional_device_id}',
         headers: {'Content-Type': 'application/json'},
         data: {payload_raw: payload, port: 2, confirmed: false}
       };
