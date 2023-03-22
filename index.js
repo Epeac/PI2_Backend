@@ -3,6 +3,7 @@ const express = require('express');
 const measureController = require("./src/mesures/mesure.controller");
 const userController = require("./src/users/users.controller");
 const downlinkController = require("./src/downlink/downlink.controller");
+const uplinkController = require ("./src/uplink/uplink.contoller")
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 require("./src/authentication/local.strategy");
@@ -35,11 +36,10 @@ app.use("/users", userController);
 app.use(
   "/downlink",
   passport.authenticate("jwt", { session: false }),
-  downlinkController);
+  downlinkController
+  );
 
-
-
-
+app.use("/uplink",uplinkController);
 
 async function main() {
   await mongoose.connect(process.env.MONGO_URI);

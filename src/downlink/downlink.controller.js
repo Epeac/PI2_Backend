@@ -1,4 +1,5 @@
 var axios = require("axios").default;
+const authorizationMiddleware = require("../authorization/authorization.middleware");
 const httpErrorHelper = require("../custom-errors/http-error.helper");
 const router = require("express").Router();
 
@@ -23,6 +24,7 @@ async function SendingData(req, res, next){
 }
 router.post(
   "/",
+  authorizationMiddleware.canAccess(["admin"]),
   SendingData);
 
 module.exports = router;
